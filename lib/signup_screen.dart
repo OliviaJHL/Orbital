@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mealthy/homepage.dart';
 
 class SignupPage extends StatelessWidget {
   const SignupPage({Key? key}) : super(key: key);
@@ -69,7 +70,12 @@ class SignupPage extends StatelessWidget {
                     child: MaterialButton(
                       minWidth: double.infinity,
                       height: 60,
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (_) => (const HomePage())),
+                        );
+                      },
                       color: Colors.orange,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
@@ -92,8 +98,8 @@ class SignupPage extends StatelessWidget {
                   height: 200,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage("assets/signup.png"),
-                        fit: BoxFit.fitWidth,
+                      image: AssetImage("assets/signup.png"),
+                      fit: BoxFit.fitWidth,
                     ),
                   ),
                 )

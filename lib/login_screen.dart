@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:mealthy/forget_password_screen.dart';
+import 'package:mealthy/homepage.dart';
 import 'package:mealthy/signup_screen.dart';
 
-class LoginPage extends StatelessWidget {
+
+class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +63,9 @@ class LoginPage extends StatelessWidget {
                           border: OutlineInputBorder(),
                         ),
                       ),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       const TextField(
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
@@ -62,22 +74,25 @@ class LoginPage extends StatelessWidget {
                         ),
                         obscureText: true,
                       ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const ForgetpasswordPage()));
-                      },
-                      child: const Text(
-                        "Forget your password?",
-                        style: TextStyle(
-                          color: Colors.black54,
-                          fontSize: 15.0,
-                          decoration: TextDecoration.underline,
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const ForgetpasswordPage()));
+                        },
+                        child: const Text(
+                          "Forget your password?",
+                          style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 15.0,
+                            decoration: TextDecoration.underline,
+                          ),
                         ),
                       ),
-                    ),
                     ],
                   ),
                 ),
@@ -88,7 +103,12 @@ class LoginPage extends StatelessWidget {
                     child: MaterialButton(
                       minWidth: double.infinity,
                       height: 60,
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => (const HomePage())),
+                            );
+                      },
                       color: Colors.orange,
                       //const Color(0xff0095FF),
                       elevation: 0,
@@ -98,15 +118,14 @@ class LoginPage extends StatelessWidget {
                       child: const Text(
                         "Login",
                         style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 25.0,
-                        color: Colors.white,
-                      ),
+                          fontWeight: FontWeight.w600,
+                          fontSize: 25.0,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
                 ),
-
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -124,25 +143,24 @@ class LoginPage extends StatelessWidget {
                             MaterialPageRoute(
                                 builder: (context) => const SignupPage()));
                       },
-                    child: const Text(
-                      " Sign up",
-                      style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18,
-                      color: Colors.orange,
+                      child: const Text(
+                        " Sign up",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                          color: Colors.orange,
+                        ),
                       ),
-                    ),
                     ),
                   ],
                 ),
-
                 Container(
                   padding: const EdgeInsets.only(top: 100),
                   height: 200,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage("assets/login.png"),
-                        fit: BoxFit.fitWidth,
+                      image: AssetImage("assets/login.png"),
+                      fit: BoxFit.fitWidth,
                     ),
                   ),
                 ),
