@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mealthy/login_screen.dart';
-//import 'package:mealthy/new_password.dart';
-//import 'package:mealthy/login_screen.dart';
-import 'package:mealthy/signup_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 //import 'package:mealthy/splash.dart';
-//import 'package:mealthy/verification.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -19,7 +18,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: LoginPage(),
-      //SignupPage(),
+        //SplashScreen(),
     );
   }
 }

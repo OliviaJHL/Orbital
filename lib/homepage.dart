@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:mealthy/login_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +31,11 @@ class HomePage extends StatelessWidget {
               minWidth: double.infinity,
               height: 60,
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                      builder: (_) => (const LoginPage())),
-                );
+                FirebaseAuth.instance.signOut().then((value) {
+                  debugPrint("Signed Out");
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const LoginPage()));
+                });
               },
               color: Colors.orange,
               elevation: 0,

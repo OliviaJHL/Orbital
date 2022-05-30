@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:mealthy/forget_password_screen.dart';
 import 'package:mealthy/homepage.dart';
+import 'package:mealthy/reuse.dart';
 import 'package:mealthy/signup_screen.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
-
   @override
   // ignore: library_private_types_in_public_api
   _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
+  TextEditingController _passwordTextController = TextEditingController();
+  TextEditingController _emailTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -56,24 +58,13 @@ class _LoginPageState extends State<LoginPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 40),
                   child: Column(
                     children: <Widget>[
-                      const TextField(
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          hintText: "Email",
-                          border: OutlineInputBorder(),
-                        ),
-                      ),
+                      reusableTextField("Email", false,
+                          _emailTextController),
                       const SizedBox(
-                        height: 10,
+                        height: 15,
                       ),
-                      const TextField(
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          hintText: "Password",
-                          border: OutlineInputBorder(),
-                        ),
-                        obscureText: true,
-                      ),
+                      reusableTextField("Enter Password", true,
+                          _passwordTextController),
                       const SizedBox(
                         height: 5,
                       ),
@@ -96,37 +87,18 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                 ),
-                Padding(padding:
-                const EdgeInsets.symmetric(horizontal: 40),
-                  child: Container(
-                    padding: const EdgeInsets.only(top: 3, left: 3),
-                    child: MaterialButton(
-                      minWidth: double.infinity,
-                      height: 60,
-                      onPressed: () {
-                        Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (_) => (const HomePage())),
-                            );
-                      },
-                      color: Colors.orange,
-                      //const Color(0xff0095FF),
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      child: const Text(
-                        "Login",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 25.0,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-
+                firebaseUIButton(context, "Sign In", () {
+                  FirebaseAuth.instance
+                      .signInWithEmailAndPassword(
+                      email: _emailTextController.text,
+                      password: _passwordTextController.text)
+                      .then((value) {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const HomePage()));
+                  }).onError((error, stackTrace) {
+                    debugPrint("Error ${error.toString()}");
+                  });
+                }),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[

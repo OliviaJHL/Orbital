@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "747926038214",
-    "project_id": "mealthy-4d125",
-    "storage_bucket": "mealthy-4d125.appspot.com"
+    "project_number": "1008837351203",
+    "project_id": "mealthy-bf72a",
+    "storage_bucket": "mealthy-bf72a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:747926038214:android:1b141c8c2d03fddd7719c7",
+        "mobilesdk_app_id": "1:1008837351203:android:a8f2c4a94a9b6b77a45e96",
         "android_client_info": {
           "package_name": "com.example.mealthy"
         }
       },
       "oauth_client": [
         {
-          "client_id": "747926038214-ha9ivjghh4uh025mfjvph5nrn6304puv.apps.googleusercontent.com",
+          "client_id": "1008837351203-nv55nl30361kg0j6g25dndilrvjn9eaa.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDgrKm19Z3APtJVXmuha5R8pCeHftyJfos"
+          "current_key": "AIzaSyBOclNHfXci1p61RllVB3U81AX2uk_DFcc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "747926038214-ha9ivjghh4uh025mfjvph5nrn6304puv.apps.googleusercontent.com",
+              "client_id": "1008837351203-nv55nl30361kg0j6g25dndilrvjn9eaa.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
