@@ -45,6 +45,9 @@ class SignupPage extends StatelessWidget {
                           border: OutlineInputBorder(),
                         ),
                       ),
+                      SizedBox(
+                        height: 10,
+                      ),
                       TextField(
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
@@ -52,6 +55,9 @@ class SignupPage extends StatelessWidget {
                           border: OutlineInputBorder(),
                         ),
                         obscureText: true,
+                      ),
+                      SizedBox(
+                        height: 10,
                       ),
                       TextField(
                         keyboardType: TextInputType.emailAddress,

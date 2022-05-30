@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'homepage.dart';
+
 class NewpasswordPage extends StatelessWidget {
   const NewpasswordPage({Key? key}) : super(key: key);
 
@@ -53,21 +55,6 @@ class NewpasswordPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.symmetric(horizontal: 40),
-                //   child: Column(
-                //     children: const <Widget>[
-                //       TextField(
-                //         keyboardType: TextInputType.emailAddress,
-                //         decoration: InputDecoration(
-                //           hintText: "Password",
-                //           border: OutlineInputBorder(),
-                //         ),
-                //         obscureText: true,
-                //       ),
-                //     ],
-                //   ),
-                // ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 40),
                   child: Container(
@@ -75,7 +62,12 @@ class NewpasswordPage extends StatelessWidget {
                     child: MaterialButton(
                       minWidth: double.infinity,
                       height: 60,
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (_) => (const HomePage())),
+                        );
+                      },
                       color: Colors.orange,
                       elevation: 0.0,
                       shape: RoundedRectangleBorder(
@@ -139,6 +131,9 @@ Widget inputFile({label, obscureText = false})
               borderSide: BorderSide(color: Colors.grey)
           ),
         ),
+      ),
+      const SizedBox(
+        height: 10,
       ),
       const TextField(
         keyboardType: TextInputType.emailAddress,

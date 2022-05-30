@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mealthy/new_password.dart';
 
 class VerificationPage extends StatelessWidget {
   const VerificationPage({Key? key}) : super(key: key);
@@ -60,7 +61,12 @@ class VerificationPage extends StatelessWidget {
                     child: MaterialButton(
                       minWidth: double.infinity,
                       height: 60,
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (_) => (const NewpasswordPage())),
+                        );
+                      },
                       color: Colors.orange,
                       elevation: 0.0,
                       shape: RoundedRectangleBorder(
