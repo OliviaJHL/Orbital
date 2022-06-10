@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mealthy/login_screen.dart';
+//import 'package:mealthy/discovery.dart';
+//import 'package:mealthy/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:mealthy/navigation.dart';
+import 'package:mealthy/nutrition.dart';
 //import 'package:mealthy/splash.dart';
 
 void main() async {
@@ -17,7 +20,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      home: Navigation(),
+      //LoginPage(),
         //SplashScreen(),
     );
   }
