@@ -29,6 +29,13 @@
             {
               "client_id": "1008837351203-nv55nl30361kg0j6g25dndilrvjn9eaa.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "1008837351203-5q5rjfhitstgptvks7dkkkmmbaifqf68.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mealthy"
+              }
             }
           ]
         }

@@ -1,97 +1,176 @@
 import 'package:flutter/material.dart';
-import 'package:mealthy/homepage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mealthy/reuse.dart';
+import 'package:mealthy/login_screen.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);
   @override
-  // ignore: library_private_types_in_public_api
   _SignupPageState createState() => _SignupPageState();
 }
 
 class _SignupPageState extends State<SignupPage> {
-  TextEditingController _passwordTextController = TextEditingController();
-  TextEditingController _emailTextController = TextEditingController();
-  TextEditingController _userNameTextController = TextEditingController();
+  //late String Email, Password, Name;
+  String Email = "";
+  String Password = "";
+  String Name = "";
+
+  //Use key to check if all are validified
+  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-      ),
-      body: SizedBox(
-        height: MediaQuery.of(context).size.height,
-        width: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Expanded(child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Column(
-                  children: const <Widget>[
-                    Text(
-                      "Create Account",
-                      style: TextStyle(
-                        color: Color(0xFF0D47A1),
-                        fontSize: 36,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40),
-                  child: Column(
-                    children: <Widget>[
-                      reusableTextField("Email", false,
-                          _emailTextController),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      reusableTextField("Enter Password", true,
-                          _passwordTextController),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      reusableTextField("Enter UserName", false,
-                        _userNameTextController),
-                    ],
+      body: Column(
+        children: <Widget>[
+          Container(
+            height: MediaQuery.of(context).size.height * 0.7,
+            width: double.infinity,
+            child: SafeArea(
+                child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 32),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        //reusable function
+                        backToPrevious(context),
+                        SizedBox(
+                          height: 12.0,
+                        ),
+                        //Title
+                        Container(
+                          width: double.infinity,
+                          child: Text(
+                            "Create Account",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              color: Color(0xFF143A62),
+                              fontSize: 36,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 36.0,
+                        ),
+                        Form(
+                          key: _formkey,
+                          child: Column(
+                            children: <Widget>[
+                              //Email
+                              Padding(
+                                padding: EdgeInsets.only(bottom: 6.0),
+                                child: TextFormField(
+                                  keyboardType: TextInputType.text,
+                                  decoration: buildInputDecoration('Email'),
+                                  validator: (String? value) {
+                                    if (value == "") {
+                                      return 'Please enter your email';
+                                    }
+                                    if (!RegExp(
+                                            "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                                        .hasMatch(value!)) {
+                                      return 'Please enter valid email';
+                                    }
+                                    return null;
+                                  },
+                                  onSaved: (String? value) {
+                                    Email = value!;
+                                  },
+                                ),
+                              ),
+                              //Password
+                              Padding(
+                                padding: EdgeInsets.only(top: 6.0, bottom: 6.0),
+                                child: TextFormField(
+                                  obscureText: true,
+                                  keyboardType: TextInputType.text,
+                                  decoration: buildInputDecoration('Password'),
+                                  validator: (String? value) {
+                                    if (value == "") {
+                                      return 'Please enter a password';
+                                    }
+                                    if (value != null && value.length < 6) {
+                                      return 'Password must be at least 6 characters long';
+                                    }
+                                    if (value != null && value.length > 18) {
+                                      return 'Password must be less than 18 characters long';
+                                    }
+                                    return null;
+                                  },
+                                  onSaved: (String? value) {
+                                    Password = value!;
+                                  },
+                                ),
+                              ),
+                              //Username
+                              Padding(
+                                padding: EdgeInsets.only(top: 6.0),
+                                child: TextFormField(
+                                  keyboardType: TextInputType.text,
+                                  decoration: buildInputDecoration('Username'),
+                                  validator: (String? value) {
+                                    if (value == "") {
+                                      return 'Please enter your username';
+                                    }
+                                    if (value != null && value.length > 18) {
+                                      return 'username must be less than 18 characters long';
+                                    }
+                                    return null;
+                                  },
+                                  onSaved: (String? value) {
+                                    Name = value!;
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                height: 12.0,
+                              ),
+                              UIButton(context, 'Next', () async {
+                                if (_formkey.currentState!.validate()) {
+                                  _formkey.currentState!.save();
+                                  try {
+                                    await FirebaseAuth.instance
+                                        .createUserWithEmailAndPassword(
+                                            email: Email, password: Password)
+                                        .then((value) {
+                                      Navigator.pushNamed(
+                                          context, '/Verification_sign_up');
+                                    });
+                                  } on FirebaseAuthException catch (e) {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(SnackBar(
+                                      content: Text(
+                                          'Repeated email, please try using another email.'),
+                                    ));
+                                  }
+                                }
+                                ;
+                              }),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ))),
+          ),
+          Container(
+            height: MediaQuery.of(context).size.height * 0.3,
+            width: double.infinity,
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("images/Signup_bottom.png"),
+                    fit: BoxFit.fill,
                   ),
                 ),
-                firebaseUIButton(context, "Sign Up", () {
-                  FirebaseAuth.instance
-                      .createUserWithEmailAndPassword(
-                      email: _emailTextController.text,
-                      password: _passwordTextController.text)
-                      .then((value) {
-                    debugPrint("Created New Account");
-                    Navigator.push(context,
-                        MaterialPageRoute(
-                            builder: (context) => const HomePage()));
-                  }).onError((error, stackTrace) {
-                    debugPrint("Error ${error.toString()}");
-                  });
-                }),
-                Container(
-                  padding: const EdgeInsets.only(top: 100),
-                  height: 200,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage("assets/signup.png"),
-                      fit: BoxFit.fitWidth,
-                    ),
-                  ),
-                )
-              ],
-            ))
-          ],
-        ),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

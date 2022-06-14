@@ -11,7 +11,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,8 +32,7 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 FirebaseAuth.instance.signOut().then((value) {
                   debugPrint("Signed Out");
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const LoginPage()));
+                  Navigator.pushNamed(context, '/Login');
                 });
               },
               color: Colors.orange,
