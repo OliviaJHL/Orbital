@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
 InputDecoration buildInputDecoration(String hinttext) {
@@ -54,29 +52,31 @@ Container UIButton(BuildContext context, String title, Function onTap) {
   );
 }
 
-//reusableTextField will be discard
-TextFormField reusableTextField(
-    String text, bool isPasswordType, TextEditingController controller) {
-  return TextFormField(
-    controller: controller,
-    obscureText: isPasswordType,
-    enableSuggestions: !isPasswordType,
-    autocorrect: !isPasswordType,
-    cursorColor: Colors.black,
-    style: const TextStyle(color: Color(0xFF8C8C8C)),
-    decoration: InputDecoration(
-      hintText: text,
-      labelStyle: const TextStyle(color: Color(0xFF8C8C8C)),
-      filled: true,
-      floatingLabelBehavior: FloatingLabelBehavior.never,
-      fillColor: Colors.white,
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(25.0),
-        //borderSide: const BorderSide(width: 0, style: BorderStyle.none)
+ListTile profileListtile(
+    BuildContext context, String title, String redirectPage) {
+  return ListTile(
+    contentPadding: EdgeInsets.zero,
+    leading: Text(
+      title,
+      style: TextStyle(
+          color: Color(0xFF4A4A4A),
+          fontSize: 18.0,
+          fontWeight: FontWeight.w600),
+    ),
+    trailing: Theme(
+      data: ThemeData(
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+      ),
+      child: IconButton(
+        padding: EdgeInsets.all(0.0),
+        alignment: Alignment.centerRight,
+        onPressed: () {
+          Navigator.pushNamed(context, redirectPage);
+        },
+        icon: Icon(Icons.arrow_forward_ios),
       ),
     ),
-    keyboardType: isPasswordType
-        ? TextInputType.visiblePassword
-        : TextInputType.emailAddress,
   );
 }

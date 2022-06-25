@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mealthy/reuse.dart';
+import 'package:mealthy/manage_stats.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:mealthy/email.dart';
+import 'package:mealthy/name.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -10,8 +14,11 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   //Store user info
-  String Email = "";
   String Password = "";
+
+  var db = FirebaseFirestore.instance;
+
+  var currentDate = "${DateTime.now().toLocal()}".split(' ')[0];
 
   //Use key to check if all are validified
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
@@ -146,7 +153,70 @@ class _LoginPageState extends State<LoginPage> {
                           final auth = FirebaseAuth.instance;
                           User? user = auth.currentUser;
                           if (user!.emailVerified) {
-                            Navigator.pushNamed(context, '/HomePage');
+                            //Get current calorie intake
+                            db
+                                .collection('Users')
+                                .where('Email', isEqualTo: Email)
+                                .get()
+                                .then((value) {
+                              db
+                                  .collection('Users')
+                                  .doc(value.docs[0].id)
+                                  .collection('Calorie record')
+                                  .where('Date', isEqualTo: currentDate)
+                                  .get()
+                                  .then(
+                                (ref) {
+                                  if (ref.docs.isNotEmpty) {
+                                    db
+                                        .collection('Users')
+                                        .doc(value.docs[0].id)
+                                        .collection('Calorie record')
+                                        .doc(ref.docs[0].id)
+                                        .get()
+                                        .then(
+                                      (value) {
+                                        breakfast = value['Breakfast'];
+                                        lunch = value['Lunch'];
+                                        dinner = value['Dinner'];
+                                        others = value['Others'];
+                                      },
+                                    );
+                                  }
+                                },
+                              );
+                            });
+                            //Get name
+                            db
+                                .collection('Users')
+                                .where('Email', isEqualTo: Email)
+                                .get()
+                                .then((value) {
+                              db
+                                  .collection('Users')
+                                  .doc(value.docs[0].id)
+                                  .get()
+                                  .then((value) {
+                                Name = value['Name'];
+                              });
+                            });
+                            //Get goal
+                            db
+                                .collection('Users')
+                                .where('Email', isEqualTo: Email)
+                                .get()
+                                .then((value) {
+                              db
+                                  .collection('Users')
+                                  .doc(value.docs[0].id)
+                                  .get()
+                                  .then((value) {
+                                goal = value['Set goal'];
+                              });
+                            });
+                            //Get food
+                            //getFood();
+                            Navigator.pushNamed(context, '/Navigation');
                           } else {
                             Navigator.pushNamed(
                                 context, '/Verification_sign_up');

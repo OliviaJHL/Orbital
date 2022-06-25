@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:async';
-import 'package:mealthy/reuse.dart';
 
 class VerificationPage_sign_up extends StatefulWidget {
   const VerificationPage_sign_up({Key? key}) : super(key: key);
@@ -20,7 +19,7 @@ class _VerificationPage_sign_upState extends State<VerificationPage_sign_up> {
     await user!.reload();
     if (user!.emailVerified) {
       timer.cancel();
-      Navigator.pushNamed(context, '/HomePage');
+      Navigator.pushNamed(context, '/Allergens_fromVeri');
     }
   }
 
@@ -91,7 +90,7 @@ class _VerificationPage_sign_upState extends State<VerificationPage_sign_up> {
                     Container(
                       width: double.infinity,
                       child: Text(
-                        "Your email address must be verified before using MealThy, please check your email to complete the verification process.\n\nif your email address is incorrect, please return to the previous page and update it.",
+                        "Your email address must be verified before using MealThy, please check your email to complete the verification process.",
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           fontSize: 14,

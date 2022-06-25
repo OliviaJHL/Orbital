@@ -1,124 +1,74 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:mealthy/Manage.dart';
 import 'package:mealthy/discovery.dart';
 import 'package:mealthy/nutrition.dart';
-
+import 'package:mealthy/pantry.dart';
+import 'package:mealthy/profile.dart';
 
 class Navigation extends StatefulWidget {
   const Navigation({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _NavigationState createState() => _NavigationState();
 }
 
 class _NavigationState extends State<Navigation> {
-  int _selectedIndex = 0;
+  int currentIndex = 0;
 
-  final List<Widget> _bottomBarScreens = <Widget>[
+  List<Widget> bottomBarScreens = <Widget>[
     const Discovery(),
+    const Pantry(),
+    const Manage(),
     const Nutrition(),
+    const Profile(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: null,
-      body: Container(
-        child: _bottomBarScreens.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavBar(
-        onTap: _bottomNavIconOnTap,
-        index: _selectedIndex,
-      ),
-    );
-  }
-
-  _bottomNavIconOnTap(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-}
-
-class BottomNavBar extends StatelessWidget {
-  final int index;
-  final ValueChanged<int> onTap;
-
-  BottomNavBar({Key? key, required this.onTap, required this.index})
-      : super(key: key);
-
-  final List<BottomNavigationBarItem> items = <BottomNavigationBarItem>[
-    const BottomNavigationBarItem(
-      activeIcon: ActiveNavBarIcon(
-        icon: Icons.restaurant,
-      ),
-      icon: Icon(Icons.restaurant),
-      label: 'Discovery',
-      backgroundColor: Color(0xFFFFB300),
-    ),
-    const BottomNavigationBarItem(
-      activeIcon: ActiveNavBarIcon(
-        icon: MdiIcons.fridgeIndustrial,
-      ),
-      icon: Icon(MdiIcons.fridgeIndustrial),
-      label: 'Pantry',
-      backgroundColor: Color(0xFFFFB300),
-    ),
-    const BottomNavigationBarItem(
-      activeIcon: ActiveNavBarIcon(
-        icon: Icons.grid_view,
-      ),
-      icon: Icon(Icons.grid_view),
-      label: 'Management',
-      backgroundColor: Color(0xFFFFB300),
-    ),
-    const BottomNavigationBarItem(
-      activeIcon: ActiveNavBarIcon(
-        icon: Icons.spa_outlined,
-      ),
-      icon: Icon(Icons.spa_outlined),
-      label: 'Nutrition',
-      backgroundColor: Color(0xFFFFB300),
-    ),
-    const BottomNavigationBarItem(
-      activeIcon: ActiveNavBarIcon(
-        icon: Icons.person_outline,
-      ),
-      icon: Icon(Icons.person_outline),
-      label: 'Profile',
-      backgroundColor: Color(0xFFFFB300),
-    )
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      items: items,
-      unselectedItemColor: Colors.white,
-      showUnselectedLabels: true,
-      selectedItemColor: Colors.red,
-      showSelectedLabels: false,
-      currentIndex: index,
-      onTap: onTap,
-    );
-  }
-}
-
-class ActiveNavBarIcon extends StatelessWidget {
-  final IconData icon;
-  const ActiveNavBarIcon({Key? key, required this.icon}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Icon(icon),
-        const SizedBox(
-          height: 1,
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Colors.white,
+      body: bottomBarScreens[currentIndex],
+      bottomNavigationBar: new Theme(
+        data: Theme.of(context).copyWith(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          hoverColor: Colors.transparent,
         ),
-      ],
+        child: BottomNavigationBar(
+            backgroundColor: Color(0xFFFCC25E),
+            iconSize: 32.0,
+            unselectedItemColor: Colors.white,
+            selectedItemColor: Color(0xFFEC6543),
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            type: BottomNavigationBarType.fixed,
+            currentIndex: currentIndex,
+            onTap: (index) => setState(() => currentIndex = index),
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.restaurant),
+                label: 'Discovery',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(MdiIcons.fridgeIndustrial),
+                label: 'Pantry',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.grid_view),
+                label: 'Manage',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.spa_outlined),
+                label: 'Nutrition',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person_outline),
+                label: 'Profile',
+              ),
+            ]),
+      ),
     );
   }
 }
-

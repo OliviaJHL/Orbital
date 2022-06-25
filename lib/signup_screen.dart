@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mealthy/manage_stats.dart';
 import 'package:mealthy/reuse.dart';
-import 'package:mealthy/login_screen.dart';
+import 'package:mealthy/email.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:mealthy/name.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);
@@ -10,13 +13,20 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
-  //late String Email, Password, Name;
-  String Email = "";
   String Password = "";
-  String Name = "";
 
   //Use key to check if all are validified
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+
+  var db = FirebaseFirestore.instance;
+
+  var currentDate = "${DateTime.now().toLocal()}".split(' ')[0];
+
+  var user = <String, dynamic>{
+    "Email": "",
+    "Name": "",
+    "Set goal": "",
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -136,6 +146,10 @@ class _SignupPageState extends State<SignupPage> {
                                         .createUserWithEmailAndPassword(
                                             email: Email, password: Password)
                                         .then((value) {
+                                      user.update('Email', (value) => Email);
+                                      user.update('Name', (value) => Name);
+                                      user.update('Set goal', (value) => goal);
+                                      db.collection("Users").add(user);
                                       Navigator.pushNamed(
                                           context, '/Verification_sign_up');
                                     });
