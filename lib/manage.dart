@@ -22,13 +22,13 @@ Card myCard(BuildContext context, String pic, String title, String description,
     ),
     child: Container(
       margin: EdgeInsets.all(28.0),
-      height: MediaQuery.of(context).size.height * heightPre,
+      height: heightPre,
       width: double.infinity,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Image.asset(pic),
-          SizedBox(height: 6.0),//6
+          SizedBox(height: 6.0),
           Text(
             title,
             style: TextStyle(
@@ -63,7 +63,7 @@ class _ManageState extends State<Manage> {
         width: double.infinity,
         child: SafeArea(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 32), //32
+            padding: EdgeInsets.symmetric(horizontal: 32),
             child: ListView(
               children: <Widget>[
                 SizedBox(
@@ -91,7 +91,7 @@ class _ManageState extends State<Manage> {
                     'Record down your daily calorie intake.',
                     'Record',
                     '/Calorie_record',
-                    0.47), //0.38
+                    340),
                 SizedBox(
                   height: 24.0,
                 ),
@@ -102,7 +102,7 @@ class _ManageState extends State<Manage> {
                     'The Calorie calculator can be used to estimate the number of calories a person needs to consume each day and provide simple guidelines for gaining or losing weight.',
                     'Try Now',
                     '/Calorie_calculator',
-                    0.55),//0.48
+                    400),
                 SizedBox(
                   height: 24.0,
                 ),
@@ -113,7 +113,7 @@ class _ManageState extends State<Manage> {
                     'Set your daily calorie intake goal.',
                     'Set Goal',
                     '/Set_goal',
-                    0.47),//0.38
+                    340),
                 SizedBox(
                   height: 24.0,
                 ),
