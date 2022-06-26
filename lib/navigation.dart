@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:mealthy/Manage.dart';
-import 'package:mealthy/discovery.dart';
-import 'package:mealthy/nutrition.dart';
+
 import 'package:mealthy/pantry.dart';
 import 'package:mealthy/profile.dart';
+import 'package:mealthy/ui/screens/main/main_screen.dart';
+import 'package:mealthy/ui_nutrition/screens/detailsscreen/nutrition_screen.dart';
+import 'package:mealthy/ui_nutrition/screens/main/nutrition.dart';
 
 class Navigation extends StatefulWidget {
   const Navigation({Key? key}) : super(key: key);
@@ -17,7 +19,7 @@ class _NavigationState extends State<Navigation> {
   int currentIndex = 0;
 
   List<Widget> bottomBarScreens = <Widget>[
-    const Discovery(),
+    const MainScreen(),
     const Pantry(),
     const Manage(),
     const Nutrition(),
