@@ -94,7 +94,9 @@ class _ProfileState extends State<Profile> {
                   color: Color(0xFFC4C4C4),
                 ),
                 SizedBox(height: 12.0),
-                UIButton(context, 'Log out', () {})
+                UIButton(context, 'Log out', () {
+                  Navigator.pushNamed(context, '/Login');
+                })
               ],
             ),
           ),

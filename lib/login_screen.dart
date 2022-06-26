@@ -25,6 +25,30 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    AlertDialog dialog = AlertDialog(
+      content: Text(
+        "Expired food found in your pantry.",
+        style: TextStyle(
+            color: Color(0xFF4A4A4A),
+            fontSize: 18,
+            fontWeight: FontWeight.w600),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text(
+            'Close',
+            style: TextStyle(
+              color: Color(0xFFFCC25E),
+              fontSize: 18,
+            ),
+          ),
+        )
+      ],
+    );
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -214,8 +238,32 @@ class _LoginPageState extends State<LoginPage> {
                                 goal = value['Set goal'];
                               });
                             });
-                            //Get food
-                            //getFood();
+                            //Check expiration
+                            db
+                                .collection('Users')
+                                .where('Email', isEqualTo: Email)
+                                .get()
+                                .then((value) {
+                              db
+                                  .collection('Users')
+                                  .doc(value.docs[0].id)
+                                  .collection('Pantry')
+                                  .get()
+                                  .then((ref) {
+                                for (var doc in ref.docs) {
+                                  if (DateTime.parse(doc['ExpDate']).isBefore(
+                                      DateTime.parse(
+                                          "${DateTime.now().toLocal()}"
+                                              .split(' ')[0]))) {
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) =>
+                                            dialog);
+                                    break;
+                                  }
+                                }
+                              });
+                            });
                             Navigator.pushNamed(context, '/Navigation');
                           } else {
                             Navigator.pushNamed(

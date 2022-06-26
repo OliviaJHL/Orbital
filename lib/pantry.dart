@@ -93,8 +93,18 @@ class _PantryState extends State<Pantry> {
                           children: <Widget>[
                             ListTile(
                               contentPadding: EdgeInsets.all(0.0),
-                              leading: Image.asset(
-                                  'images/' + doc["Category"] + ".png"),
+                              leading: DateTime.parse(doc['ExpDate']).compareTo(
+                                          DateTime.parse(
+                                              "${DateTime.now().toLocal()}"
+                                                  .split(' ')[0])) >=
+                                      0
+                                  ? Image.asset(
+                                      'images/' + doc["Category"] + ".png")
+                                  : Image.asset(
+                                      'images/' + doc["Category"] + ".png",
+                                      color: Colors.grey.withOpacity(0.8),
+                                      colorBlendMode: BlendMode.srcATop,
+                                    ),
                               title: Padding(
                                 padding: const EdgeInsets.only(bottom: 16.0),
                                 child: Text(
