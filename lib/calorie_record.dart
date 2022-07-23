@@ -3,6 +3,7 @@ import 'package:mealthy/manage_stats.dart';
 import 'package:mealthy/reuse.dart';
 import 'package:mealthy/email.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tap_debouncer/tap_debouncer.dart';
 
 class calorieRecord extends StatefulWidget {
   const calorieRecord({Key? key}) : super(key: key);
@@ -11,7 +12,8 @@ class calorieRecord extends StatefulWidget {
   _calorieRecordState createState() => _calorieRecordState();
 }
 
-class _calorieRecordState extends State<calorieRecord> {
+class _calorieRecordState extends State<calorieRecord>
+    with WidgetsBindingObserver {
   var db = FirebaseFirestore.instance;
 
   ListTile myMeal(BuildContext context, mealIcon, String mealName, String meal,
@@ -78,6 +80,50 @@ class _calorieRecordState extends State<calorieRecord> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    isFirstEnter().then((value) {
+      if (value) {
+        breakfast = '0';
+        lunch = '0';
+        dinner = '0';
+        others = '0';
+      }
+    });
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.resumed) {
+      // user returned to our app
+      setState(() {
+        isFirstEnter().then((value) {
+          if (value) {
+            breakfast = '0';
+            lunch = '0';
+            dinner = '0';
+            others = '0';
+          }
+        });
+      });
+    } else if (state == AppLifecycleState.inactive) {
+      // app is inactive
+    } else if (state == AppLifecycleState.paused) {
+      // user quit our app temporally
+    } else if (state == AppLifecycleState.detached) {
+      // app suspended
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
@@ -107,7 +153,48 @@ class _calorieRecordState extends State<calorieRecord> {
                       ),
                     ),
                   ),
-                  Align(
+                  Container(
+                    child: TapDebouncer(
+                      onTap: () async {
+                        await db
+                            .collection('Users')
+                            .where('Email', isEqualTo: Email)
+                            .get()
+                            .then((value) async {
+                          await db
+                              .collection("Users")
+                              .doc(value.docs[0].id)
+                              .collection("Calorie record")
+                              .orderBy('Date', descending: true)
+                              .get()
+                              .then((value) => myDoc = value);
+                        });
+                        Navigator.pushNamed(context, '/Record_history');
+                      }, // your tap handler moved here
+                      builder: (BuildContext context, TapDebouncerFunc? onTap) {
+                        return Align(
+                          alignment: Alignment.centerLeft,
+                          child: TextButton(
+                            onPressed:
+                                onTap, // It is just onTap from builder callback
+                            child: const Text(
+                              'View record history',
+                              style: TextStyle(
+                                fontSize: 18.0,
+                                color: Color(0xFFFCC25E),
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                            style: TextButton.styleFrom(
+                              padding: EdgeInsets.all(0.0),
+                              primary: Colors.white,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  /*Align(
                     alignment: Alignment.centerLeft,
                     child: TextButton(
                       onPressed: () async {
@@ -139,7 +226,7 @@ class _calorieRecordState extends State<calorieRecord> {
                         primary: Colors.white,
                       ),
                     ),
-                  ),
+                  ),*/
                   SizedBox(height: 6.0),
                   myMeal(context, Icons.breakfast_dining, 'Breakfast: ',
                       breakfast, '/Breakfast'),
@@ -189,7 +276,7 @@ class _calorieRecordState extends State<calorieRecord> {
                                             WidgetSpan(
                                               child: Icon(
                                                 Icons.report_problem,
-                                                size: 22,
+                                                size: 20,
                                                 color: Color(0xFFDC0C15),
                                               ),
                                             ),
@@ -198,7 +285,7 @@ class _calorieRecordState extends State<calorieRecord> {
                                                     " You have already exceed your calorie goal today!",
                                                 style: TextStyle(
                                                   color: Color(0xFFDC0C15),
-                                                  fontSize: 18.0,
+                                                  fontSize: 16.0,
                                                   fontWeight: FontWeight.w600,
                                                 )),
                                           ],

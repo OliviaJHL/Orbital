@@ -150,8 +150,6 @@ class _newFoodState extends State<newFood> {
                       DropdownButtonFormField2(
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Color(0xFFC4C4C4), width: 2),
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
@@ -182,8 +180,6 @@ class _newFoodState extends State<newFood> {
                       DropdownButtonFormField2(
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Color(0xFFC4C4C4), width: 2),
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),

@@ -1,13 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mealthy/reuse.dart';
-import 'package:mealthy/manage_stats.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mealthy/email.dart';
-import 'package:mealthy/name.dart';
+import 'package:mealthy/recipe_nutrition_state.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -25,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    AlertDialog dialog = AlertDialog(
+    /*AlertDialog dialog = AlertDialog(
       content: Text(
         "Expired food found in your pantry.",
         style: TextStyle(
@@ -47,8 +47,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
         )
       ],
-    );
-
+    );*/
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -177,7 +176,9 @@ class _LoginPageState extends State<LoginPage> {
                           final auth = FirebaseAuth.instance;
                           User? user = auth.currentUser;
                           if (user!.emailVerified) {
-                            //Get current calorie intake
+                            myInitial(FirebaseAuth.instance.currentUser!.email,
+                                context, '/Navigation');
+                            /*//Get current calorie intake
                             db
                                 .collection('Users')
                                 .where('Email', isEqualTo: Email)
@@ -263,8 +264,31 @@ class _LoginPageState extends State<LoginPage> {
                                   }
                                 }
                               });
-                            });
+                            });*/
                             Navigator.pushNamed(context, '/Navigation');
+                            /*db
+                                .collection('Users')
+                                .where('Email', isEqualTo: Email)
+                                .get()
+                                .then((value) {
+                              db
+                                  .collection('Users')
+                                  .doc(value.docs[0].id)
+                                  .get()
+                                  .then((value) {
+                                likedRecipe = [];
+                                likedRecipe.addAll(value['likedRecipe']);
+                                print(likedRecipe);
+                                Navigator.pushNamed(
+                                    context,
+                                    myInitial(
+                                        FirebaseAuth
+                                            .instance.currentUser!.email,
+                                        context,
+                                        '/Navigation'));
+                              });
+                            });*/
+
                           } else {
                             Navigator.pushNamed(
                                 context, '/Verification_sign_up');
@@ -273,6 +297,7 @@ class _LoginPageState extends State<LoginPage> {
                         } on FirebaseAuthException catch (e) {
                           print(e);
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            duration: const Duration(seconds: 2),
                             content: Text(
                                 'Incorrect email or password, please try again'),
                           ));
@@ -311,21 +336,12 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           ),
-          Container(
-            height: MediaQuery.of(context).size.height * 0.3,
-            width: double.infinity,
+          Expanded(
             child: Align(
               alignment: Alignment.bottomCenter,
-              child: Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("images/Login_bottom.png"),
-                    fit: BoxFit.fill,
-                  ),
-                ),
-              ),
+              child: Container(child: Image.asset("images/Login_bottom.png")),
             ),
-          )
+          ),
         ],
       ),
     );

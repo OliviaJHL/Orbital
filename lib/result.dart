@@ -19,6 +19,7 @@ Container displayDesign(String type, int calculate) {
       children: [
         Text(
           type,
+          textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 18.0,
             color: Color(0xFF143A62),
@@ -53,7 +54,26 @@ Container displayDesign(String type, int calculate) {
   );
 }
 
-Container displayResult(a, g, h, w, ac) {
+Column displayMultiDesign(String typeI, String typeII, String typeIII,
+    int maintain, int mild_loss, int loss) {
+  return Column(
+    children: [
+      displayDesign(typeI, maintain),
+      Divider(
+        height: 6,
+        color: Colors.white,
+      ),
+      displayDesign(typeII, mild_loss),
+      Divider(
+        height: 6,
+        color: Colors.white,
+      ),
+      displayDesign(typeIII, loss),
+    ],
+  );
+}
+
+displayResult(a, g, h, w, ac) {
   var ageInt = int.parse(a!);
   // ignore: unnecessary_type_check
   assert(ageInt is int);
@@ -64,15 +84,105 @@ Container displayResult(a, g, h, w, ac) {
   // ignore: unnecessary_type_check
   assert(weightDouble is double);
 
+  double maleBMR_base =
+      10 * weightDouble + 6.25 * heightDouble - 5 * ageInt + 5;
+  double femaleBMR_base =
+      10 * weightDouble + 6.25 * heightDouble - 5 * ageInt - 161;
+
+  double mild_loss = 0.85;
+  double loss = 0.75;
+
+  String typeI = 'Maintain weight:';
+  String typeII = 'Mild weight loss:';
+  String typeIII = 'Weight loss:';
+
   if (ac == 'Basal Metabolic Rate (BMR)') {
     if (g == 'Male') {
-      double maleBMR = 10 * weightDouble + 6.25 * heightDouble - 5 * ageInt + 5;
-      return displayDesign('Basal Metabolic Rate (BMR):', maleBMR.round());
+      return displayDesign('Basal Metabolic Rate (BMR):', maleBMR_base.round());
     }
     if (g == 'Female') {
-      double femaleBMR =
-          10 * weightDouble + 6.25 * heightDouble - 5 * ageInt - 161;
-      return displayDesign('Basal Metabolic Rate (BMR):', femaleBMR.round());
+      return displayDesign(
+          'Basal Metabolic Rate (BMR):', femaleBMR_base.round());
+    }
+  }
+  if (ac == 'Light: exercise 1-3 times a week') {
+    if (g == 'Male') {
+      return displayMultiDesign(
+          typeI,
+          typeII,
+          typeIII,
+          (maleBMR_base * 1.15).round(),
+          (maleBMR_base * 1.15 * mild_loss).round(),
+          (maleBMR_base * 1.15 * loss).round());
+    }
+    if (g == 'Female') {
+      return displayMultiDesign(
+          typeI,
+          typeII,
+          typeIII,
+          (femaleBMR_base * 1.15).round(),
+          (femaleBMR_base * 1.15 * mild_loss).round(),
+          (femaleBMR_base * 1.15 * loss).round());
+    }
+  }
+  if (ac == 'Moderate: exercise 4-5 times a week') {
+    if (g == 'Male') {
+      return displayMultiDesign(
+          typeI,
+          typeII,
+          typeIII,
+          (maleBMR_base * 1.4).round(),
+          (maleBMR_base * 1.4 * mild_loss).round(),
+          (maleBMR_base * 1.4 * loss).round());
+    }
+    if (g == 'Female') {
+      return displayMultiDesign(
+          typeI,
+          typeII,
+          typeIII,
+          (maleBMR_base * 1.4).round(),
+          (maleBMR_base * 1.4 * mild_loss).round(),
+          (maleBMR_base * 1.4 * loss).round());
+    }
+  }
+  if (ac == 'Active: daily exercise or intense exercise 3-4 times a week') {
+    if (g == 'Male') {
+      return displayMultiDesign(
+          typeI,
+          typeII,
+          typeIII,
+          (maleBMR_base * 1.6).round(),
+          (maleBMR_base * 1.6 * mild_loss).round(),
+          (maleBMR_base * 1.6 * loss).round());
+    }
+    if (g == 'Female') {
+      return displayMultiDesign(
+          typeI,
+          typeII,
+          typeIII,
+          (femaleBMR_base * 1.6).round(),
+          (femaleBMR_base * 1.6 * mild_loss).round(),
+          (femaleBMR_base * 1.6 * loss).round());
+    }
+  }
+  if (ac == 'Intense: intense exercise 6-7 times a week') {
+    if (g == 'Male') {
+      return displayMultiDesign(
+          typeI,
+          typeII,
+          typeIII,
+          (maleBMR_base * 1.8).round(),
+          (maleBMR_base * 1.8 * mild_loss).round(),
+          (maleBMR_base * 1.8 * loss).round());
+    }
+    if (g == 'Female') {
+      return displayMultiDesign(
+          typeI,
+          typeII,
+          typeIII,
+          (femaleBMR_base * 1.8).round(),
+          (femaleBMR_base * 1.8 * mild_loss).round(),
+          (femaleBMR_base * 1.8 * loss).round());
     }
   }
   return Container(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mealthy/manage_stats.dart';
+import 'package:mealthy/recipe_nutrition_state.dart';
 import 'package:mealthy/reuse.dart';
 import 'package:mealthy/email.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -26,6 +27,7 @@ class _SignupPageState extends State<SignupPage> {
     "Email": "",
     "Name": "",
     "Set goal": "",
+    "likedRecipe": [""],
   };
 
   @override
@@ -149,6 +151,8 @@ class _SignupPageState extends State<SignupPage> {
                                       user.update('Email', (value) => Email);
                                       user.update('Name', (value) => Name);
                                       user.update('Set goal', (value) => goal);
+                                      user.update(
+                                          'likedRecipe', (value) => [""]);
                                       db.collection("Users").add(user);
                                       Navigator.pushNamed(
                                           context, '/Verification_sign_up');
@@ -156,6 +160,7 @@ class _SignupPageState extends State<SignupPage> {
                                   } on FirebaseAuthException catch (e) {
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(SnackBar(
+                                      duration: const Duration(seconds: 2),
                                       content: Text(
                                           'Repeated email, please try using another email.'),
                                     ));
@@ -169,21 +174,12 @@ class _SignupPageState extends State<SignupPage> {
                       ],
                     ))),
           ),
-          Container(
-            height: MediaQuery.of(context).size.height * 0.3,
-            width: double.infinity,
+          Expanded(
             child: Align(
               alignment: Alignment.bottomCenter,
-              child: Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("images/Signup_bottom.png"),
-                    fit: BoxFit.fill,
-                  ),
-                ),
-              ),
+              child: Container(child: Image.asset("images/Signup_bottom.png")),
             ),
-          )
+          ),
         ],
       ),
     );

@@ -121,6 +121,7 @@ class _ForgetpasswordPageState extends State<ForgetpasswordPage> {
                             ;
                           } on FirebaseAuthException catch (e) {
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              duration: const Duration(seconds: 2),
                               content: Text(
                                   'Error occur, please ensure your email is correct'),
                             ));

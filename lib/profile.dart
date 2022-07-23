@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mealthy/name.dart';
 import 'package:mealthy/reuse.dart';
@@ -12,6 +13,11 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   var db = FirebaseFirestore.instance;
+
+  void logout() async {
+    await FirebaseAuth.instance.signOut();
+    Navigator.pushNamed(context, '/Login');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +101,7 @@ class _ProfileState extends State<Profile> {
                 ),
                 SizedBox(height: 12.0),
                 UIButton(context, 'Log out', () {
-                  Navigator.pushNamed(context, '/Login');
+                  logout();
                 })
               ],
             ),

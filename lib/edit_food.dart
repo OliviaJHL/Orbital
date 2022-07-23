@@ -32,7 +32,7 @@ class _editFoodState extends State<editFood> {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
   bool _decideWhichDayToEnable(DateTime day) {
-    if (day.isAfter(DateTime.now().subtract(Duration(days: 1)))) {
+    if (day.isAfter(DateTime.now().subtract(Duration(days: 10)))) {
       return true;
     }
     return false;
@@ -110,7 +110,8 @@ class _editFoodState extends State<editFood> {
                   child: Column(
                     children: [
                       TextFormField(
-                        decoration: buildInputDecoration(foodName),
+                        initialValue: foodName,
+                        decoration: buildInputDecoration(''),
                         validator: (String? value) {
                           if (value == "") {
                             return 'Please key in the food name';
@@ -123,7 +124,8 @@ class _editFoodState extends State<editFood> {
                       ),
                       SizedBox(height: 12.0),
                       TextFormField(
-                        decoration: buildInputDecoration(quantity),
+                        initialValue: quantity,
+                        decoration: buildInputDecoration(''),
                         keyboardType: TextInputType.number,
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
@@ -148,8 +150,6 @@ class _editFoodState extends State<editFood> {
                       DropdownButtonFormField2(
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Color(0xFFC4C4C4), width: 2),
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
@@ -180,8 +180,6 @@ class _editFoodState extends State<editFood> {
                       DropdownButtonFormField2(
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Color(0xFFC4C4C4), width: 2),
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),

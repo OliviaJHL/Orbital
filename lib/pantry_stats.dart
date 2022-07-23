@@ -10,3 +10,5 @@ String ID = '';
 DateTime selectedDate = DateTime.now();
 
 var database = FirebaseFirestore.instance;
+
+bool myCheck = false;

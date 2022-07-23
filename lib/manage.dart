@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mealthy/manage_stats.dart';
 import 'package:mealthy/reuse.dart';
+import 'package:mealthy/recipe_nutrition_state.dart';
 
 class Manage extends StatefulWidget {
   const Manage({Key? key}) : super(key: key);
@@ -40,13 +42,27 @@ Card myCard(BuildContext context, String pic, String title, String description,
           Text(
             description,
             style: TextStyle(
-              color: Color(0xFF000000),
+              color: Color(0xFF4A4A4A),
               fontSize: 14,
             ),
           ),
-          UIButton(context, buttonText, () {
-            Navigator.pushNamed(context, redirectPage);
-          })
+          buttonText == 'Record'
+              ? UIButton(context, buttonText, () {
+                  isFirstEnter().then((value) {
+                    if (value) {
+                      breakfast = '0';
+                      lunch = '0';
+                      dinner = '0';
+                      others = '0';
+                    }
+                  });
+                  print(breakfast);
+                  print(myCheckAllergens);
+                  Navigator.pushNamed(context, redirectPage);
+                })
+              : UIButton(context, buttonText, () {
+                  Navigator.pushNamed(context, redirectPage);
+                }),
         ],
       ),
     ),
@@ -64,7 +80,7 @@ class _ManageState extends State<Manage> {
         child: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 32),
-            child: ListView(
+            child: Column(
               children: <Widget>[
                 SizedBox(
                   height: 12.0,
@@ -84,39 +100,45 @@ class _ManageState extends State<Manage> {
                 SizedBox(
                   height: 18.0,
                 ),
-                myCard(
-                    context,
-                    'images/Calorie_record.png',
-                    'Calorie record',
-                    'Record down your daily calorie intake.',
-                    'Record',
-                    '/Calorie_record',
-                    340),
-                SizedBox(
-                  height: 24.0,
-                ),
-                myCard(
-                    context,
-                    'images/Calorie_calculator.png',
-                    'Calorie calculator',
-                    'The Calorie calculator can be used to estimate the number of calories a person needs to consume each day and provide simple guidelines for gaining or losing weight.',
-                    'Try Now',
-                    '/Calorie_calculator',
-                    400),
-                SizedBox(
-                  height: 24.0,
-                ),
-                myCard(
-                    context,
-                    'images/Set_goal.png',
-                    'Set goal',
-                    'Set your daily calorie intake goal.',
-                    'Set Goal',
-                    '/Set_goal',
-                    340),
-                SizedBox(
-                  height: 24.0,
-                ),
+                Expanded(
+                  child: ListView(
+                    children: [
+                      myCard(
+                          context,
+                          'images/Calorie_record.png',
+                          'Calorie record',
+                          'Record down your daily calorie intake.',
+                          'Record',
+                          '/Calorie_record',
+                          340),
+                      SizedBox(
+                        height: 24.0,
+                      ),
+                      myCard(
+                          context,
+                          'images/Calorie_calculator.png',
+                          'Calorie calculator',
+                          'The Calorie calculator can be used to estimate the number of calories a person needs to consume each day and provide simple guidelines for gaining or losing weight.',
+                          'Try Now',
+                          '/Calorie_calculator',
+                          400),
+                      SizedBox(
+                        height: 24.0,
+                      ),
+                      myCard(
+                          context,
+                          'images/Set_goal.png',
+                          'Set goal',
+                          'Set your daily calorie intake goal.',
+                          'Set Goal',
+                          '/Set_goal',
+                          340),
+                      SizedBox(
+                        height: 24.0,
+                      ),
+                    ],
+                  ),
+                )
               ],
             ),
           ),

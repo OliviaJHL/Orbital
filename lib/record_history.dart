@@ -10,29 +10,36 @@ class RecordHistroy extends StatefulWidget {
 }
 
 class _RecordHistroyState extends State<RecordHistroy> {
-  ListTile myMeal(
+  Container myMeal(
       BuildContext context, mealIcon, String mealName, String meal) {
-    return ListTile(
-      shape: RoundedRectangleBorder(
-        side: BorderSide(color: Color(0xFF4A4A4A), width: 2),
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Color(0xFF4A4A4A), width: 2),
         borderRadius: BorderRadius.circular(5.0),
       ),
-      contentPadding: EdgeInsets.only(left: 12.0, right: 6.0),
-      leading: Icon(
-        mealIcon,
-        size: 30.0,
-        color: Color(0xFF4A4A4A),
-      ),
-      title: Transform.translate(
-        offset: Offset(-12, 0),
-        child: Text(mealName + meal + ' cal',
-            style: TextStyle(
-                color: Color(0xFF4A4A4A),
-                fontSize: 18.0,
-                fontWeight: FontWeight.w600)),
+      child: ListTile(
+        contentPadding: EdgeInsets.only(left: 12.0, right: 6.0),
+        leading: Icon(
+          mealIcon,
+          size: 30.0,
+          color: Color(0xFF4A4A4A),
+        ),
+        title: Transform.translate(
+          offset: Offset(-12, 0),
+          child: Text(mealName + meal + ' cal',
+              style: TextStyle(
+                  color: Color(0xFF4A4A4A),
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w600)),
+        ),
       ),
     );
   }
+
+  /*      shape: RoundedRectangleBorder(
+        side: BorderSide(color: Color(0xFF4A4A4A), width: 2),
+        borderRadius: BorderRadius.circular(5.0),
+      ),*/
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +52,7 @@ class _RecordHistroyState extends State<RecordHistroy> {
         child: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 32),
-            child: ListView(
+            child: Column(
               children: <Widget>[
                 backToPrevious(context),
                 SizedBox(
@@ -63,53 +70,59 @@ class _RecordHistroyState extends State<RecordHistroy> {
                     ),
                   ),
                 ),
-                for (var doc in myDoc.docs)
-                  Column(
+                Expanded(
+                  child: ListView(
                     children: [
-                      SizedBox(
-                        height: 24.0,
-                      ),
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Date: " + doc["Date"],
-                          style: TextStyle(
-                            color: Color(0xFF4A4A4A),
-                            fontSize: 18,
-                            fontWeight: FontWeight.w900,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 12.0),
-                      myMeal(
-                        context,
-                        Icons.breakfast_dining,
-                        'Breakfast: ',
-                        doc["Breakfast"],
-                      ),
-                      SizedBox(height: 12.0),
-                      myMeal(
-                        context,
-                        Icons.lunch_dining,
-                        'Lunch: ',
-                        doc["Lunch"],
-                      ),
-                      SizedBox(height: 12.0),
-                      myMeal(
-                        context,
-                        Icons.dinner_dining,
-                        'Dinner: ',
-                        doc["Dinner"],
-                      ),
-                      SizedBox(height: 12.0),
-                      myMeal(
-                        context,
-                        Icons.free_breakfast,
-                        'Others: ',
-                        doc["Others"],
-                      ),
+                      for (var doc in myDoc.docs)
+                        Column(
+                          children: [
+                            SizedBox(
+                              height: 24.0,
+                            ),
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                "Date: " + doc["Date"],
+                                style: TextStyle(
+                                  color: Color(0xFF4A4A4A),
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w900,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 12.0),
+                            myMeal(
+                              context,
+                              Icons.breakfast_dining,
+                              'Breakfast: ',
+                              doc["Breakfast"],
+                            ),
+                            SizedBox(height: 12.0),
+                            myMeal(
+                              context,
+                              Icons.lunch_dining,
+                              'Lunch: ',
+                              doc["Lunch"],
+                            ),
+                            SizedBox(height: 12.0),
+                            myMeal(
+                              context,
+                              Icons.dinner_dining,
+                              'Dinner: ',
+                              doc["Dinner"],
+                            ),
+                            SizedBox(height: 12.0),
+                            myMeal(
+                              context,
+                              Icons.free_breakfast,
+                              'Others: ',
+                              doc["Others"],
+                            ),
+                          ],
+                        )
                     ],
-                  )
+                  ),
+                )
               ],
             ),
           ),
