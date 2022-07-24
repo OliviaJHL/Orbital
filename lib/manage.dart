@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mealthy/manage_stats.dart';
 import 'package:mealthy/reuse.dart';
 import 'package:mealthy/recipe_nutrition_state.dart';
+import 'package:mealthy/email.dart';
 
 class Manage extends StatefulWidget {
   const Manage({Key? key}) : super(key: key);
@@ -48,17 +49,9 @@ Card myCard(BuildContext context, String pic, String title, String description,
           ),
           buttonText == 'Record'
               ? UIButton(context, buttonText, () {
-                  isFirstEnter().then((value) {
-                    if (value) {
-                      breakfast = '0';
-                      lunch = '0';
-                      dinner = '0';
-                      others = '0';
-                    }
-                  });
-                  print(breakfast);
-                  print(myCheckAllergens);
+                  myInitial(Email, context, '/Calorie_record');
                   Navigator.pushNamed(context, redirectPage);
+                  print(myCheckAllergens);
                 })
               : UIButton(context, buttonText, () {
                   Navigator.pushNamed(context, redirectPage);

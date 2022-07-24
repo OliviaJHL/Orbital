@@ -27,7 +27,7 @@ class _SignupPageState extends State<SignupPage> {
     "Email": "",
     "Name": "",
     "Set goal": "",
-    "likedRecipe": [""],
+    "likedRecipe": ["Null"],
   };
 
   @override
@@ -150,10 +150,21 @@ class _SignupPageState extends State<SignupPage> {
                                         .then((value) {
                                       user.update('Email', (value) => Email);
                                       user.update('Name', (value) => Name);
-                                      user.update('Set goal', (value) => goal);
+                                      user.update('Set goal', (value) => '');
                                       user.update(
-                                          'likedRecipe', (value) => [""]);
+                                          'likedRecipe', (value) => ["Null"]);
                                       db.collection("Users").add(user);
+                                      myCheckAllergens = [
+                                        false,
+                                        false,
+                                        false,
+                                        false,
+                                        false,
+                                        false,
+                                        false,
+                                        false,
+                                      ];
+                                      likedRecipe = [];
                                       Navigator.pushNamed(
                                           context, '/Verification_sign_up');
                                     });

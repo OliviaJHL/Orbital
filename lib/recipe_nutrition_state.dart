@@ -39,7 +39,7 @@ Future<DocumentSnapshot<Map<String, dynamic>>> recipeName() async {
 //Related with nutrition
 String currentNutrition = '';
 
-String currentNutritionCal = '';
+String currentNutritionCal = '100';
 
 Future<QuerySnapshot<Map<String, dynamic>>> myNutrition() async {
   var temp = await db.collection('Nutrition');
@@ -62,6 +62,9 @@ Future<DocumentSnapshot<Map<String, dynamic>>> nutritionName() async {
 //Liked recipes
 Future<QuerySnapshot<Map<String, dynamic>>> likedRecipes() async {
   //return await db.collection('Recipes').where('Liked', isEqualTo: true).get();
+  if (likedRecipe.length == 0) {
+    likedRecipe = ['Null'];
+  }
   return await db
       .collection('Recipes')
       .where('Name', whereIn: likedRecipe)

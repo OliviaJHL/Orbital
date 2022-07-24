@@ -194,12 +194,6 @@ class _NutritionDetailState extends State<NutritionDetail> {
                                       ),
                                       onChanged: (String? newValue) {
                                         selectedSize = newValue!;
-                                        currentNutritionCal =
-                                            (int.parse(currentDocs['Calorie']) *
-                                                    int.parse(selectedSize) /
-                                                    100)
-                                                .round()
-                                                .toString();
                                         _updateInfoValue.value =
                                             int.parse(newValue);
                                         //setState(() {});
@@ -288,6 +282,12 @@ class _NutritionDetailState extends State<NutritionDetail> {
                                               "'" +
                                               's calorie to your daily calorie intake.'),
                                         ));
+                                        currentNutritionCal =
+                                            (int.parse(currentDocs['Calorie']) *
+                                                    int.parse(selectedSize) /
+                                                    100)
+                                                .round()
+                                                .toString();
                                         if (value == 'Breakfast') {
                                           breakfast = (int.parse(breakfast) +
                                                   int.parse(

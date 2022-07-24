@@ -103,21 +103,12 @@ class _VerificationPage_sign_upState extends State<VerificationPage_sign_up> {
               ),
             ),
           ),
-          Container(
-            height: MediaQuery.of(context).size.height * 0.3,
-            width: double.infinity,
+          Expanded(
             child: Align(
               alignment: Alignment.bottomCenter,
-              child: Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("images/Signup_bottom.png"),
-                    fit: BoxFit.fill,
-                  ),
-                ),
-              ),
+              child: Container(child: Image.asset("images/Signup_bottom.png")),
             ),
-          )
+          ),
         ]));
   }
 }

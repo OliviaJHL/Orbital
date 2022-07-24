@@ -147,7 +147,7 @@ String myInitial(String? email, BuildContext context, String redirectedPage) {
               others = value['Others'];
             },
           );
-          if (redirectedPage == '/Navigation') {
+          /*if (redirectedPage == '/Navigation') {
             isFirstEnter().then((value) {
               if (value) {
                 breakfast = '0';
@@ -156,7 +156,12 @@ String myInitial(String? email, BuildContext context, String redirectedPage) {
                 others = '0';
               }
             });
-          }
+          }*/
+        } else {
+          breakfast = '0';
+          lunch = '0';
+          dinner = '0';
+          others = '0';
         }
       },
     );

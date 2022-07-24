@@ -25,13 +25,11 @@ class _ProfileState extends State<Profile> {
       resizeToAvoidBottomInset: false,
       backgroundColor: Color(0xFFFFFFFF),
       body: Container(
-        height: MediaQuery.of(context).size.height,
         width: double.infinity,
         child: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 32),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+            child: ListView(
               children: <Widget>[
                 SizedBox(
                   height: 12.0,

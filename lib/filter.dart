@@ -10,6 +10,12 @@ class Filter extends StatefulWidget {
 }
 
 class _FilterState extends State<Filter> {
+  void initState() {
+    super.initState();
+    localChoosenCuisine = [];
+    localChoosenCuisine.addAll(choosenCuisine);
+  }
+
   List<String> localChoosenCuisine = [];
 
   List<bool> localChoose = [
@@ -32,6 +38,9 @@ class _FilterState extends State<Filter> {
 
   @override
   Widget build(BuildContext context) {
+    print(localChoosenCuisine.length);
+    print(choosenCuisine.length);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -141,13 +150,26 @@ class _FilterState extends State<Filter> {
                                   onChanged: (bool? value) {
                                     setState(() {
                                       if (value!) {
-                                        localChoosenCuisine
-                                            .add(cuisineChoose[index]);
+                                        if (localChoosenCuisine.length < 10) {
+                                          localChoosenCuisine
+                                              .add(cuisineChoose[index]);
+                                          print(localChoosenCuisine);
+                                          localChoose[index] = value;
+                                        } else {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                            duration:
+                                                const Duration(seconds: 2),
+                                            content: Text(
+                                                'You can only filter up to 10 differnt cuisines'),
+                                          ));
+                                        }
                                       } else {
                                         localChoosenCuisine
                                             .remove(cuisineChoose[index]);
+                                        print(localChoosenCuisine);
+                                        localChoose[index] = value;
                                       }
-                                      localChoose[index] = value;
                                     });
                                   },
                                 ),
@@ -172,6 +194,7 @@ class _FilterState extends State<Filter> {
                     cuisineCheck.addAll(localChoose);
                     choosenCuisine = [];
                     choosenCuisine.addAll(localChoosenCuisine);
+                    print(choosenCuisine.length);
                     Navigator.pop(context);
                   })
                 ],

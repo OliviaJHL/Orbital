@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mealthy/reuse.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mealthy/email.dart';
-import 'package:mealthy/recipe_nutrition_state.dart';
+import 'package:mealthy/filter_stats.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -176,8 +176,8 @@ class _LoginPageState extends State<LoginPage> {
                           final auth = FirebaseAuth.instance;
                           User? user = auth.currentUser;
                           if (user!.emailVerified) {
-                            myInitial(FirebaseAuth.instance.currentUser!.email,
-                                context, '/Navigation');
+                            /*myInitial(FirebaseAuth.instance.currentUser!.email,
+                                context, '/Navigation');*/
                             /*//Get current calorie intake
                             db
                                 .collection('Users')
@@ -265,7 +265,30 @@ class _LoginPageState extends State<LoginPage> {
                                 }
                               });
                             });*/
-                            Navigator.pushNamed(context, '/Navigation');
+                            choosenCuisine = [];
+                            cuisineCheck = [
+                              false,
+                              false,
+                              false,
+                              false,
+                              false,
+                              false,
+                              false,
+                              false,
+                              false,
+                              false,
+                              false,
+                              false,
+                              false,
+                              false,
+                              false,
+                            ];
+                            Navigator.pushNamed(
+                                context,
+                                myInitial(
+                                    FirebaseAuth.instance.currentUser!.email,
+                                    context,
+                                    '/Navigation'));
                             /*db
                                 .collection('Users')
                                 .where('Email', isEqualTo: Email)

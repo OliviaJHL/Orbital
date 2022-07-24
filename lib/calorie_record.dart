@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:mealthy/manage_stats.dart';
 import 'package:mealthy/reuse.dart';
@@ -79,23 +81,35 @@ class _calorieRecordState extends State<calorieRecord>
     );
   }
 
+  late Timer myTimer;
+  int counter = 0;
+
   @override
   void initState() {
     super.initState();
-    isFirstEnter().then((value) {
+    myTimer = Timer.periodic(const Duration(milliseconds: 500), (Timer timer) {
+      if (counter < 10) {
+        counter = counter + 1;
+        setState(() {});
+      } else {
+        myTimer.cancel();
+      }
+    });
+    /*isFirstEnter().then((value) {
       if (value) {
         breakfast = '0';
         lunch = '0';
         dinner = '0';
         others = '0';
       }
-    });
+    });*/
     WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    myTimer.cancel();
     super.dispose();
   }
 
@@ -105,14 +119,7 @@ class _calorieRecordState extends State<calorieRecord>
     if (state == AppLifecycleState.resumed) {
       // user returned to our app
       setState(() {
-        isFirstEnter().then((value) {
-          if (value) {
-            breakfast = '0';
-            lunch = '0';
-            dinner = '0';
-            others = '0';
-          }
-        });
+        myInitial(Email, context, '/Calorie_record');
       });
     } else if (state == AppLifecycleState.inactive) {
       // app is inactive
@@ -125,6 +132,7 @@ class _calorieRecordState extends State<calorieRecord>
 
   @override
   Widget build(BuildContext context) {
+    print(breakfast);
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Color(0xFFFFFFFF),

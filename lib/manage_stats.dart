@@ -38,18 +38,26 @@ var myDoc = null;
     return false;
   }
 }*/
-Future<bool> isFirstEnter() async {
+
+/*Future<bool> isFirstEnter() async {
   SharedPreferences temp = await SharedPreferences.getInstance();
   String timeBase = temp.getString('items') ?? '';
-  String today = "${DateTime.now().toLocal()}".split(' ')[0];
+  String today =
+      "${DateTime.now().toLocal()}".split(' ')[0];
   //add(const Duration(days: 1))
-  print(timeBase);
-  if (today != timeBase) {
+  bool temp11 = timeBase != today;
+  print(temp11);
+  if (true) {
+    print(temp11);
+    breakfast = '0';
+    lunch = '0';
+    dinner = '0';
+    others = '0';
     timeBase = today;
-    print(timeBase);
+
     temp.setString('items', timeBase);
     return true;
   } else {
     return false;
   }
-}
+}*/
