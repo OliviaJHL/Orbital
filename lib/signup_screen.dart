@@ -65,7 +65,7 @@ class _SignupPageState extends State<SignupPage> {
                           ),
                         ),
                         SizedBox(
-                          height: 36.0,
+                          height: 24.0,
                         ),
                         Form(
                           key: _formkey,
@@ -89,7 +89,7 @@ class _SignupPageState extends State<SignupPage> {
                                     return null;
                                   },
                                   onSaved: (String? value) {
-                                    Email = value!;
+                                    Email = value!.toLowerCase();
                                   },
                                 ),
                               ),
@@ -146,9 +146,13 @@ class _SignupPageState extends State<SignupPage> {
                                   try {
                                     await FirebaseAuth.instance
                                         .createUserWithEmailAndPassword(
-                                            email: Email, password: Password)
+                                            email: Email.toLowerCase(),
+                                            password: Password)
                                         .then((value) {
-                                      user.update('Email', (value) => Email);
+                                      user.update(
+                                          'Email',
+                                          (value) =>
+                                              Email.toLowerCase().trim());
                                       user.update('Name', (value) => Name);
                                       user.update('Set goal', (value) => '');
                                       user.update(
@@ -165,6 +169,10 @@ class _SignupPageState extends State<SignupPage> {
                                         false,
                                       ];
                                       likedRecipe = [];
+                                      breakfast = '0';
+                                      lunch = '0';
+                                      dinner = '0';
+                                      others = '0';
                                       Navigator.pushNamed(
                                           context, '/Verification_sign_up');
                                     });
@@ -184,12 +192,6 @@ class _SignupPageState extends State<SignupPage> {
                         ),
                       ],
                     ))),
-          ),
-          Expanded(
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(child: Image.asset("images/Signup_bottom.png")),
-            ),
           ),
         ],
       ),

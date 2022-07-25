@@ -32,7 +32,7 @@ class _editFoodState extends State<editFood> {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
   bool _decideWhichDayToEnable(DateTime day) {
-    if (day.isAfter(DateTime.now().subtract(Duration(days: 10)))) {
+    if (day.isAfter(DateTime.now().subtract(Duration(days: 1)))) {
       return true;
     }
     return false;

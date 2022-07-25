@@ -138,8 +138,8 @@ class _calorieCalculatorState extends State<calorieCalculator> {
                                   if (heightDouble <= 0) {
                                     return 'Height must be larger then 0 cm';
                                   }
-                                  if (heightDouble > 300) {
-                                    return 'Height must be smaller then 300 cm';
+                                  if (heightDouble > 500) {
+                                    return 'Height must be smaller then 500 cm';
                                   }
                                   return null;
                                 },
@@ -165,6 +165,9 @@ class _calorieCalculatorState extends State<calorieCalculator> {
                                   assert(weightDouble is double);
                                   if (weightDouble <= 0) {
                                     return 'Weight must be larger then 0 kg';
+                                  }
+                                  if (weightDouble > 10000) {
+                                    return 'Weight must be less than 10000 kg';
                                   }
                                   return null;
                                 },

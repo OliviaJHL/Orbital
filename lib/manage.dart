@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mealthy/manage_stats.dart';
 import 'package:mealthy/reuse.dart';
 import 'package:mealthy/recipe_nutrition_state.dart';
 import 'package:mealthy/email.dart';

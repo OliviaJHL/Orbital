@@ -7,8 +7,6 @@ import 'package:mealthy/recipe_nutrition_state.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 
-var currentDate = "${DateTime.now().toLocal()}".split(' ')[0];
-
 InputDecoration buildInputDecoration(String hinttext) {
   return InputDecoration(
     hintText: hinttext,
@@ -122,13 +120,14 @@ void checkFood(String? email) async {
 
 String myInitial(String? email, BuildContext context, String redirectedPage) {
   Email = email!;
+
   //Get calorie
   db.collection('Users').where('Email', isEqualTo: Email).get().then((value) {
     db
         .collection('Users')
         .doc(value.docs[0].id)
         .collection('Calorie record')
-        .where('Date', isEqualTo: currentDate)
+        .where('Date', isEqualTo: "${DateTime.now().toLocal()}".split(' ')[0])
         .get()
         .then(
       (ref) {
@@ -147,16 +146,6 @@ String myInitial(String? email, BuildContext context, String redirectedPage) {
               others = value['Others'];
             },
           );
-          /*if (redirectedPage == '/Navigation') {
-            isFirstEnter().then((value) {
-              if (value) {
-                breakfast = '0';
-                lunch = '0';
-                dinner = '0';
-                others = '0';
-              }
-            });
-          }*/
         } else {
           breakfast = '0';
           lunch = '0';

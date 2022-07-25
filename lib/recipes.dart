@@ -51,6 +51,8 @@ class _RecipesState extends State<Recipes> {
 
   @override
   Widget build(BuildContext context) {
+    var recip_currentDate = "${DateTime.now().toLocal()}".split(' ')[0];
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -274,7 +276,7 @@ class _RecipesState extends State<Recipes> {
                                               .doc(value.docs[0].id)
                                               .collection('Calorie record')
                                               .where('Date',
-                                                  isEqualTo: currentDate)
+                                                  isEqualTo: recip_currentDate)
                                               .get()
                                               .then(
                                             (ref) {
@@ -290,7 +292,7 @@ class _RecipesState extends State<Recipes> {
                                                   'Lunch': '0',
                                                   'Dinner': '0',
                                                   'Others': '0',
-                                                  'Date': currentDate
+                                                  'Date': recip_currentDate
                                                 });
                                               } else {
                                                 db
@@ -321,7 +323,7 @@ class _RecipesState extends State<Recipes> {
                                               .doc(value.docs[0].id)
                                               .collection('Calorie record')
                                               .where('Date',
-                                                  isEqualTo: currentDate)
+                                                  isEqualTo: recip_currentDate)
                                               .get()
                                               .then(
                                             (ref) {
@@ -337,7 +339,7 @@ class _RecipesState extends State<Recipes> {
                                                   'Lunch': lunch,
                                                   'Dinner': '0',
                                                   'Others': '0',
-                                                  'Date': currentDate
+                                                  'Date': recip_currentDate
                                                 });
                                               } else {
                                                 db
@@ -368,7 +370,7 @@ class _RecipesState extends State<Recipes> {
                                               .doc(value.docs[0].id)
                                               .collection('Calorie record')
                                               .where('Date',
-                                                  isEqualTo: currentDate)
+                                                  isEqualTo: recip_currentDate)
                                               .get()
                                               .then(
                                             (ref) {
@@ -384,7 +386,7 @@ class _RecipesState extends State<Recipes> {
                                                   'Lunch': '0',
                                                   'Dinner': dinner,
                                                   'Others': '0',
-                                                  'Date': currentDate
+                                                  'Date': recip_currentDate
                                                 });
                                               } else {
                                                 db
@@ -415,7 +417,7 @@ class _RecipesState extends State<Recipes> {
                                               .doc(value.docs[0].id)
                                               .collection('Calorie record')
                                               .where('Date',
-                                                  isEqualTo: currentDate)
+                                                  isEqualTo: recip_currentDate)
                                               .get()
                                               .then(
                                             (ref) {
@@ -431,7 +433,7 @@ class _RecipesState extends State<Recipes> {
                                                   'Lunch': '0',
                                                   'Dinner': '0',
                                                   'Others': others,
-                                                  'Date': currentDate
+                                                  'Date': recip_currentDate
                                                 });
                                               } else {
                                                 db

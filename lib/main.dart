@@ -50,6 +50,8 @@ class _MyAppState extends State<MyApp> {
     user = FirebaseAuth.instance.authStateChanges().listen((user) {
       if (user == null) {
         print('User is currently signed out!');
+      } else if (!user.emailVerified) {
+        print('User has not verified his/her email');
       } else {
         print('User is signed in!');
       }
@@ -64,10 +66,12 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    //print(FirebaseAuth.instance.currentUser!.emailVerified);
     return MaterialApp(
       title: 'MealThy',
       debugShowCheckedModeBanner: false,
-      initialRoute: FirebaseAuth.instance.currentUser == null
+      initialRoute: FirebaseAuth.instance.currentUser == null ||
+              !FirebaseAuth.instance.currentUser!.emailVerified
           ? '/Login'
           : myInitial(
               FirebaseAuth.instance.currentUser!.email, context, '/Navigation'),

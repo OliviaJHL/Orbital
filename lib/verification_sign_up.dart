@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:async';
 
+import 'package:mealthy/reuse.dart';
+
 class VerificationPage_sign_up extends StatefulWidget {
   const VerificationPage_sign_up({Key? key}) : super(key: key);
   @override
@@ -19,7 +21,10 @@ class _VerificationPage_sign_upState extends State<VerificationPage_sign_up> {
     await user!.reload();
     if (user!.emailVerified) {
       timer.cancel();
-      Navigator.pushNamed(context, '/Allergens_fromVeri');
+      Navigator.pushNamed(
+          context,
+          myInitial(FirebaseAuth.instance.currentUser!.email, context,
+              '/Allergens_fromVeri'));
     }
   }
 
@@ -90,7 +95,7 @@ class _VerificationPage_sign_upState extends State<VerificationPage_sign_up> {
                     Container(
                       width: double.infinity,
                       child: Text(
-                        "Your email address must be verified before using MealThy, please check your email to complete the verification process.",
+                        "Your email address must be verified before using MealThy, please check your email to complete the verification process.\n\nAfter you verified your email, the system will take a few seconds to process, please wait patiently\n\nIf you accidently key in the wrong email, please close the application and try to sign up again\n\nIf your email verification link happened to expired, please click the button below to resend email",
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           fontSize: 14,
@@ -98,15 +103,16 @@ class _VerificationPage_sign_upState extends State<VerificationPage_sign_up> {
                         ),
                       ),
                     ),
+                    SizedBox(
+                      height: 12.0,
+                    ),
+                    UIButton(context, 'Resend email', () {
+                      user = auth.currentUser;
+                      user!.sendEmailVerification();
+                    }),
                   ],
                 ),
               ),
-            ),
-          ),
-          Expanded(
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(child: Image.asset("images/Signup_bottom.png")),
             ),
           ),
         ]));

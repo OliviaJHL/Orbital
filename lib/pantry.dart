@@ -289,21 +289,6 @@ class _PantryState extends State<Pantry> with WidgetsBindingObserver {
                   );
                 } else {
                   return Loader();
-                  /*return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        SizedBox(
-                          child: CircularProgressIndicator(
-                            color: Color(0xFFFCC25E),
-                            strokeWidth: 8.0,
-                          ),
-                          height: 80.0,
-                          width: 80.0,
-                        )
-                      ],
-                    ),
-                  );*/
                 }
               },
             ),

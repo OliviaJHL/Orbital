@@ -95,14 +95,6 @@ class _calorieRecordState extends State<calorieRecord>
         myTimer.cancel();
       }
     });
-    /*isFirstEnter().then((value) {
-      if (value) {
-        breakfast = '0';
-        lunch = '0';
-        dinner = '0';
-        others = '0';
-      }
-    });*/
     WidgetsBinding.instance.addObserver(this);
   }
 
@@ -202,39 +194,6 @@ class _calorieRecordState extends State<calorieRecord>
                       },
                     ),
                   ),
-                  /*Align(
-                    alignment: Alignment.centerLeft,
-                    child: TextButton(
-                      onPressed: () async {
-                        await db
-                            .collection('Users')
-                            .where('Email', isEqualTo: Email)
-                            .get()
-                            .then((value) async {
-                          await db
-                              .collection("Users")
-                              .doc(value.docs[0].id)
-                              .collection("Calorie record")
-                              .orderBy('Date', descending: true)
-                              .get()
-                              .then((value) => myDoc = value);
-                        });
-                        Navigator.pushNamed(context, '/Record_history');
-                      },
-                      child: Text(
-                        'View record history',
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          color: Color(0xFFFCC25E),
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
-                      style: TextButton.styleFrom(
-                        padding: EdgeInsets.all(0.0),
-                        primary: Colors.white,
-                      ),
-                    ),
-                  ),*/
                   SizedBox(height: 6.0),
                   myMeal(context, Icons.breakfast_dining, 'Breakfast: ',
                       breakfast, '/Breakfast'),

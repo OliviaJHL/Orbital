@@ -178,18 +178,6 @@ class _DiscoveryState extends State<Discovery> {
                                                         color:
                                                             Color(0xFFFCC25E),
                                                       ),
-                                                      /*allDocs[index]['Liked'] ==
-                                                          false
-                                                      ? Icon(
-                                                          Icons.favorite_outline,
-                                                          color:
-                                                              Color(0xFFFCC25E),
-                                                        )
-                                                      : Icon(
-                                                          Icons.favorite,
-                                                          color:
-                                                              Color(0xFFFCC25E),
-                                                        ),*/
                                                       iconSize: 28.0,
                                                       onPressed: () {
                                                         if (mylikestate[
@@ -257,62 +245,16 @@ class _DiscoveryState extends State<Discovery> {
                                                                       seconds:
                                                                           2),
                                                               content: Text(
-                                                                  'You can only like up to 8 recipes'),
+                                                                  'You have reached the upper limit of liked recipes'),
                                                             ));
                                                           }
                                                         }
-
-                                                        /*db
-                                                            .collection(
-                                                                'Recipes')
-                                                            .doc(allDocs[index]
-                                                                ['Name'])
-                                                            .update({
-                                                          'Liked':
-                                                              mylikestate[index]
-                                                        });*/
                                                         (context as Element)
                                                             .markNeedsBuild();
                                                       },
                                                     );
                                                   },
-                                                )
-
-                                                /*IconButton(
-                                                  padding: EdgeInsets.only(
-                                                      top: 12.0, right: 12.0),
-                                                  constraints: BoxConstraints(),
-                                                  icon: Icon(
-                                                    mylikestate[index]
-                                                        ? Icons.favorite
-                                                        : Icons.favorite_outline,
-                                                    color: Color(0xFFFCC25E),
-                                                  ),
-                                                  /*allDocs[index]['Liked'] ==
-                                                          false
-                                                      ? Icon(
-                                                          Icons.favorite_outline,
-                                                          color:
-                                                              Color(0xFFFCC25E),
-                                                        )
-                                                      : Icon(
-                                                          Icons.favorite,
-                                                          color:
-                                                              Color(0xFFFCC25E),
-                                                        ),*/
-                                                  iconSize: 28.0,
-                                                  onPressed: () {
-                                                    db
-                                                        .collection('Recipes')
-                                                        .doc(allDocs[index]
-                                                            ['Name'])
-                                                        .update({
-                                                      'Liked': !allDocs[index]
-                                                          ['Liked']
-                                                    });
-                                                  },
-                                                ),*/
-                                                ),
+                                                )),
                                           ),
                                           Expanded(
                                             child: Padding(
@@ -327,12 +269,6 @@ class _DiscoveryState extends State<Discovery> {
                                                     color: Colors.grey,
                                                     size: 80.0,
                                                   )),
-                                              /*child: FadeInImage.assetNetwork(
-                                                  placeholder:
-                                                      'images/image_loader.gif',
-                                                  image: allDocs[index]
-                                                      ['Image'],
-                                                ),*/
                                             ),
                                           ),
                                           SizedBox(

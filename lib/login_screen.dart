@@ -25,29 +25,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    /*AlertDialog dialog = AlertDialog(
-      content: Text(
-        "Expired food found in your pantry.",
-        style: TextStyle(
-            color: Color(0xFF4A4A4A),
-            fontSize: 18,
-            fontWeight: FontWeight.w600),
-      ),
-      actions: [
-        TextButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Text(
-            'Close',
-            style: TextStyle(
-              color: Color(0xFFFCC25E),
-              fontSize: 18,
-            ),
-          ),
-        )
-      ],
-    );*/
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -91,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     SizedBox(
-                      height: 36.0,
+                      height: 24.0,
                     ),
                     Form(
                       key: _formkey,
@@ -172,99 +149,11 @@ class _LoginPageState extends State<LoginPage> {
                         try {
                           await FirebaseAuth.instance
                               .signInWithEmailAndPassword(
-                                  email: Email, password: Password);
+                                  email: Email.toLowerCase().trim(),
+                                  password: Password);
                           final auth = FirebaseAuth.instance;
                           User? user = auth.currentUser;
                           if (user!.emailVerified) {
-                            /*myInitial(FirebaseAuth.instance.currentUser!.email,
-                                context, '/Navigation');*/
-                            /*//Get current calorie intake
-                            db
-                                .collection('Users')
-                                .where('Email', isEqualTo: Email)
-                                .get()
-                                .then((value) {
-                              db
-                                  .collection('Users')
-                                  .doc(value.docs[0].id)
-                                  .collection('Calorie record')
-                                  .where('Date', isEqualTo: currentDate)
-                                  .get()
-                                  .then(
-                                (ref) {
-                                  if (ref.docs.isNotEmpty) {
-                                    db
-                                        .collection('Users')
-                                        .doc(value.docs[0].id)
-                                        .collection('Calorie record')
-                                        .doc(ref.docs[0].id)
-                                        .get()
-                                        .then(
-                                      (value) {
-                                        breakfast = value['Breakfast'];
-                                        lunch = value['Lunch'];
-                                        dinner = value['Dinner'];
-                                        others = value['Others'];
-                                      },
-                                    );
-                                  }
-                                },
-                              );
-                            });
-                            //Get name
-                            db
-                                .collection('Users')
-                                .where('Email', isEqualTo: Email)
-                                .get()
-                                .then((value) {
-                              db
-                                  .collection('Users')
-                                  .doc(value.docs[0].id)
-                                  .get()
-                                  .then((value) {
-                                Name = value['Name'];
-                              });
-                            });
-                            //Get goal
-                            db
-                                .collection('Users')
-                                .where('Email', isEqualTo: Email)
-                                .get()
-                                .then((value) {
-                              db
-                                  .collection('Users')
-                                  .doc(value.docs[0].id)
-                                  .get()
-                                  .then((value) {
-                                goal = value['Set goal'];
-                              });
-                            });
-                            //Check expiration
-                            db
-                                .collection('Users')
-                                .where('Email', isEqualTo: Email)
-                                .get()
-                                .then((value) {
-                              db
-                                  .collection('Users')
-                                  .doc(value.docs[0].id)
-                                  .collection('Pantry')
-                                  .get()
-                                  .then((ref) {
-                                for (var doc in ref.docs) {
-                                  if (DateTime.parse(doc['ExpDate']).isBefore(
-                                      DateTime.parse(
-                                          "${DateTime.now().toLocal()}"
-                                              .split(' ')[0]))) {
-                                    showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) =>
-                                            dialog);
-                                    break;
-                                  }
-                                }
-                              });
-                            });*/
                             choosenCuisine = [];
                             cuisineCheck = [
                               false,
@@ -289,29 +178,6 @@ class _LoginPageState extends State<LoginPage> {
                                     FirebaseAuth.instance.currentUser!.email,
                                     context,
                                     '/Navigation'));
-                            /*db
-                                .collection('Users')
-                                .where('Email', isEqualTo: Email)
-                                .get()
-                                .then((value) {
-                              db
-                                  .collection('Users')
-                                  .doc(value.docs[0].id)
-                                  .get()
-                                  .then((value) {
-                                likedRecipe = [];
-                                likedRecipe.addAll(value['likedRecipe']);
-                                print(likedRecipe);
-                                Navigator.pushNamed(
-                                    context,
-                                    myInitial(
-                                        FirebaseAuth
-                                            .instance.currentUser!.email,
-                                        context,
-                                        '/Navigation'));
-                              });
-                            });*/
-
                           } else {
                             Navigator.pushNamed(
                                 context, '/Verification_sign_up');

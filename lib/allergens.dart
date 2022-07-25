@@ -33,18 +33,6 @@ class _allergensPageState extends State<allergensPage> {
                 SizedBox(
                   height: 12.0,
                 ),
-                /*Container(
-                  child: widget.page == '/Verification_sign_up'
-                      ? null
-                      : Column(
-                          children: [
-                            backToPrevious(context),
-                            SizedBox(
-                              height: 12.0,
-                            )
-                          ],
-                        ),
-                ),*/
                 Container(
                   width: double.infinity,
                   child: Text(

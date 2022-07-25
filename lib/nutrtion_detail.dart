@@ -53,6 +53,8 @@ class _NutritionDetailState extends State<NutritionDetail> {
 
   @override
   Widget build(BuildContext context) {
+    var nutri_currentDate = "${DateTime.now().toLocal()}".split(' ')[0];
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -303,7 +305,8 @@ class _NutritionDetailState extends State<NutritionDetail> {
                                                 .doc(value.docs[0].id)
                                                 .collection('Calorie record')
                                                 .where('Date',
-                                                    isEqualTo: currentDate)
+                                                    isEqualTo:
+                                                        nutri_currentDate)
                                                 .get()
                                                 .then(
                                               (ref) {
@@ -319,7 +322,7 @@ class _NutritionDetailState extends State<NutritionDetail> {
                                                     'Lunch': '0',
                                                     'Dinner': '0',
                                                     'Others': '0',
-                                                    'Date': currentDate
+                                                    'Date': nutri_currentDate
                                                   });
                                                 } else {
                                                   db
@@ -351,7 +354,8 @@ class _NutritionDetailState extends State<NutritionDetail> {
                                                 .doc(value.docs[0].id)
                                                 .collection('Calorie record')
                                                 .where('Date',
-                                                    isEqualTo: currentDate)
+                                                    isEqualTo:
+                                                        nutri_currentDate)
                                                 .get()
                                                 .then(
                                               (ref) {
@@ -367,7 +371,7 @@ class _NutritionDetailState extends State<NutritionDetail> {
                                                     'Lunch': lunch,
                                                     'Dinner': '0',
                                                     'Others': '0',
-                                                    'Date': currentDate
+                                                    'Date': nutri_currentDate
                                                   });
                                                 } else {
                                                   db
@@ -399,7 +403,8 @@ class _NutritionDetailState extends State<NutritionDetail> {
                                                 .doc(value.docs[0].id)
                                                 .collection('Calorie record')
                                                 .where('Date',
-                                                    isEqualTo: currentDate)
+                                                    isEqualTo:
+                                                        nutri_currentDate)
                                                 .get()
                                                 .then(
                                               (ref) {
@@ -415,7 +420,7 @@ class _NutritionDetailState extends State<NutritionDetail> {
                                                     'Lunch': '0',
                                                     'Dinner': dinner,
                                                     'Others': '0',
-                                                    'Date': currentDate
+                                                    'Date': nutri_currentDate
                                                   });
                                                 } else {
                                                   db
@@ -447,7 +452,8 @@ class _NutritionDetailState extends State<NutritionDetail> {
                                                 .doc(value.docs[0].id)
                                                 .collection('Calorie record')
                                                 .where('Date',
-                                                    isEqualTo: currentDate)
+                                                    isEqualTo:
+                                                        nutri_currentDate)
                                                 .get()
                                                 .then(
                                               (ref) {
@@ -463,7 +469,7 @@ class _NutritionDetailState extends State<NutritionDetail> {
                                                     'Lunch': '0',
                                                     'Dinner': '0',
                                                     'Others': others,
-                                                    'Date': currentDate
+                                                    'Date': nutri_currentDate
                                                   });
                                                 } else {
                                                   db

@@ -34,7 +34,7 @@ class _newFoodState extends State<newFood> {
   DateTime selectedDate = DateTime.now();
 
   bool _decideWhichDayToEnable(DateTime day) {
-    if (day.isAfter(DateTime.now().subtract(Duration(days: 10)))) {
+    if (day.isAfter(DateTime.now().subtract(Duration(days: 1)))) {
       return true;
     }
     return false;
